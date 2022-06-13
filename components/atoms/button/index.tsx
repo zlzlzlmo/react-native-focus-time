@@ -10,7 +10,7 @@ import {
 import { colors } from "../../../styles/variables";
 
 const BasicButton = () => {
-  return <Button title="로그인" onPress={() => {}} />;
+  return <Button title="로그인테스트" onPress={() => {}} />;
 };
 
 export default BasicButton;
