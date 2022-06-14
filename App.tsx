@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -10,9 +11,16 @@ import { Focus } from "./src/features/Focus";
 import { colors } from "./src/utils/colors";
 
 export default function App() {
+  const [currentSubject, setCurrentSubject] = useState<string>("");
   return (
     <SafeAreaView style={styles.container}>
-      <Focus />
+      {!currentSubject ? (
+        <Focus addSubject={setCurrentSubject} />
+      ) : (
+        <View>
+          <Text style={styles.text}>하이</Text>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -26,5 +34,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     backgroundColor: colors.darkBlue,
+  },
+  text: {
+    color: colors.white,
   },
 });
