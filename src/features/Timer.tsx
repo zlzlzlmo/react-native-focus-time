@@ -13,13 +13,15 @@ interface Props {
 const Timer = ({ focusSubject }: Props) => {
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
+
+  const handleIsStarted = () => setIsStarted(!isStarted);
   return (
     <View style={styles.container}>
       <View style={styles.cutdown}>
         <Countdown
-          minutes={2}
-          isPaused
-          onProgress={() => {}}
+          minutes={100}
+          isPaused={!isStarted}
+          onProgress={setProgress}
           onEnd={() => {}}
         />
         <View style={{ paddingTop: spacing.xxl }}>
@@ -36,7 +38,11 @@ const Timer = ({ focusSubject }: Props) => {
       </View>
 
       <View style={styles.buttonWrapper}>
-        <RoundedButton title="start" />
+        {!isStarted ? (
+          <RoundedButton title="start" onPress={handleIsStarted} />
+        ) : (
+          <RoundedButton title="false" onPress={handleIsStarted} />
+        )}
       </View>
     </View>
   );
