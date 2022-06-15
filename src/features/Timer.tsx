@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Vibration } from "react-native";
 import { ProgressBar } from "react-native-paper";
 import { Countdown } from "../components/Cutdown";
 import RoundedButton from "../components/RoundedButton";
@@ -10,19 +10,32 @@ interface Props {
   focusSubject: string;
 }
 
+const ONE_SECOND_IN_MS = 1000;
+
+const PATTERN = [
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+];
+
 const Timer = ({ focusSubject }: Props) => {
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
+  const [minutes, setMinutes] = useState<number>(0.1);
 
   const handleIsStarted = () => setIsStarted(!isStarted);
   return (
     <View style={styles.container}>
       <View style={styles.cutdown}>
         <Countdown
-          minutes={100}
+          minutes={minutes}
           isPaused={!isStarted}
           onProgress={setProgress}
-          onEnd={() => {}}
+          onEnd={() => {
+            Vibration.vibrate(PATTERN);
+          }}
         />
         <View style={{ paddingTop: spacing.xxl }}>
           <Text style={styles.title}>Focus on</Text>
